@@ -3,6 +3,7 @@
 const query = require('../queries/instructor');
 
 const instructorsData = require('../../../data');
+const { payloadValidator } = require('../schemas/create_instructor');
 
 module.exports = {
   method: 'POST',
@@ -27,6 +28,9 @@ module.exports = {
 
       instructorsData.push(data);
       reply({ data });
+    },
+    validate: {
+      payload: payloadValidator
     }
   }
 };

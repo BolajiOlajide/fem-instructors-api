@@ -1,7 +1,6 @@
 const Hapi = require('hapi');
 const server = new Hapi.Server();
 
-
 // We need to specify a connection, which
 // we can default to the port specified in
 // an ENV variable, or 3001 if none is set.

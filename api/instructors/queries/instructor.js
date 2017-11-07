@@ -42,7 +42,7 @@ const getGithubImage = (request, reply) => {
     options,
     (error, response, payload) => {
       if (error) return reply(Boom.badRequest('Something went wrong'));
-      reply(payload.avatar_url);
+      return reply(payload.avatar_url);
     }
   )
 }

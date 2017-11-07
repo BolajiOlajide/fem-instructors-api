@@ -3,6 +3,7 @@
 const Boom = require('boom');
 const instructorsData = require('../../../data');
 const sort = require('../../util/sort');
+const { queryValidator } = require('../schemas/get_instructors');
 
 module.exports = {
   method: 'GET',
@@ -11,7 +12,7 @@ module.exports = {
     handler: (request, reply) => {
 
       if (!instructorsData) {
-        Boom.notFound('No Instructors found!');
+        return reply(Boom.notFound('No Instructors found!'));
       }
 
       // Let's get just the id, name, and slug when we make
@@ -36,10 +37,13 @@ module.exports = {
       // in a simple function that uses the sortBy function
       // from Lodash
 
-      const data = sort.sortData(trimmedData, sortDirection, sortKey)
+      const data = sort.sortData(trimmedData, sortDirection, sortKey);
 
       // reply with the data
       reply({ data });
+    },
+    validate: {
+      query: queryValidator
     }
   }
 };
