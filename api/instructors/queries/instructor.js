@@ -1,5 +1,6 @@
 'use strict'
 
+const Boom = require('boom');
 const Wreck = require('wreck');
 const instructorData = require('../../../data');
 
@@ -10,7 +11,7 @@ const checkEmail = (request, reply) => {
   )
 
   if (existingInstructor) {
-    return reply({ message: 'Instructor exists!' });
+    return reply(Boom.badRequest('Instructor exists!'));
   }
   return reply();
 };
@@ -29,7 +30,7 @@ const getGithubImage = (request, reply) => {
     instructor => instructor.slug == slug
   ).github;
 
-  if (!githubUsername) return reply();
+  if (!githubUsername) return reply(Boom.badRequest('Error getting Github user!'));
 
   const options = {
     headers: { 'User-Agent': 'proton' },
@@ -40,10 +41,8 @@ const getGithubImage = (request, reply) => {
     `https://api.github.com/users/${githubUsername}`,
     options,
     (error, response, payload) => {
-      console.log(response);
-      console.log(' ');
-      console.log(payload);
-      reply(payload.data.avatar_url);
+      if (error) return reply(Boom.badRequest('Something went wrong'));
+      reply(payload.avatar_url);
     }
   )
 }

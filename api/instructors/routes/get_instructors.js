@@ -1,5 +1,6 @@
 'use strict';
 
+const Boom = require('boom');
 const instructorsData = require('../../../data');
 const sort = require('../../util/sort');
 
@@ -8,6 +9,10 @@ module.exports = {
   path: '/api/instructors',
   config: {
     handler: (request, reply) => {
+
+      if (!instructorsData) {
+        Boom.notFound('No Instructors found!');
+      }
 
       // Let's get just the id, name, and slug when we make
       // a request for all instructors
