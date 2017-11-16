@@ -1,5 +1,17 @@
 const Hapi = require('hapi');
-const server = new Hapi.Server();
+const Inert = require('inert');
+const Geolocate = require('hapi-geo-locate');
+const path = require('path');
+
+const server = new Hapi.Server({
+  connections: {
+    routes: {
+      files: {
+        relativeTo: path.join(__dirname, 'assets')
+      }
+    }
+  }
+});
 
 // We need to specify a connection, which
 // we can default to the port specified in
@@ -15,6 +27,17 @@ server.connection({
   }
 });
 
+// register the inert plugin
+server.register(Inert, () => {});
+
+// register the geo-locate plugin
+server.register({
+  register: Geolocate,
+  options: {
+    enabled: true
+  }
+}, err => console.log(err));
+
 // create a route
 server.route({
   method: 'GET',
@@ -27,6 +50,7 @@ server.route({
 server.route(require('./api/instructors/routes/get_instructors'));
 server.route(require('./api/instructors/routes/get_instructor'));
 server.route(require('./api/instructors/routes/create_instructor'));
+server.route(require('./api/images/routes/get_image'));
 
 // start the server and listen for errors just in case
 server.start(err => {

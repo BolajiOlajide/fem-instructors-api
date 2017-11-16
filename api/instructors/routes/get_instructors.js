@@ -7,7 +7,7 @@ const { queryValidator } = require('../schemas/get_instructors');
 
 module.exports = {
   method: 'GET',
-  path: '/api/instructors',
+  path: '/api/instructors/',
   config: {
     handler: (request, reply) => {
 

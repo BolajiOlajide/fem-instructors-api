@@ -14,7 +14,6 @@ module.exports = {
       { method: query.createContactSlug, assign: 'slug' }
     ],
     handler: (request, reply) => {
-      console.log(request.pre.slug);
       // create the instructor object to be saved to the database
       const data = {
         id: instructorsData.length + 1,

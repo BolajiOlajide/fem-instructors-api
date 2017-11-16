@@ -72,5 +72,18 @@ module.exports = [
       'How to not do anything',
       'How to love'
     ]
+  },
+  {
+    id: 6,
+    name: 'Perci Njira',
+    slug: 'perci-njira',
+    email: 'percila.njira@andela.com',
+    twitter: '@njirap',
+    github: 'njirap',
+    courses: [
+      'Git for superheroes',
+      'Squashing for dummies!',
+      'Ruby for devs'
+    ]
   }
 ];
